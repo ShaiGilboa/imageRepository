@@ -5,13 +5,25 @@
   "repository": "https://github.com/ShaiGilboa/imageRepository.git",
   "author": "Shai Gilboa <shizel@gmail.com>",
   "license": "MIT",
-  "devDependencies": {
-    "@types/express": "^4.17.7",
-    "@types/multer": "^1.4.4",
-    "@types/node": "^14.6.2",
+  "dependencies": {
+    "busboy": "^0.3.1",
     "express": "^4.17.1",
-    "multer": "^1.4.2",
-    "ts-node-dev": "^1.0.0-pre.61",
+    "morgan": "^1.10.0",
+    "request": "^2.88.2",
     "typescript": "^4.0.2"
+  },
+  "devDependencies": {
+    "@types/busboy": "^0.2.3",
+    "@types/express": "^4.17.7",
+    "@types/morgan": "^1.9.1",
+    "@types/node": "^14.6.2",
+    "@types/request": "^2.48.5",
+    "ts-node-dev": "^1.0.0-pre.61"
+  },
+  "scripts": {
+    "tsc": "tsc",
+    "dev": "ts-node-dev --clear --respawn --transpile-only index.ts",
+    "prod": "tsc && node ./dist/index.js",
+    "start": "node index.js"
   }
 }
