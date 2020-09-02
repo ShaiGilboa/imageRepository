@@ -18,6 +18,9 @@ const PORT : number | string = process.env.PORT || 4000;
 
 const app : express.Application = express();
 
+// logging tool to indicate "steps" that are called on, before they are done
+app.use(morgan('tiny'))
+
 // creates a middleware to define communication type,
 // because there is not indication for which endpoint, ut applies to all
 app.use((req : Request, res : Response, next : NextFunction) => {
@@ -40,9 +43,9 @@ app.use((req : Request, res : Response, next : NextFunction) => {
 
 app.get('/', function (req, res) {
   res.send('<html><head></head><body>\
-             <form method="POST" enctype="multipart/form-data">\
+            <form method="POST" enctype="multipart/form-data">\
               <input type="text" name="textfield"><br />\
-              <input type="file" name="filefield"><br />\
+              <input type="file" name="file1"><br />\
               <input type="submit">\
             </form>\
           </body></html>');
@@ -59,8 +62,6 @@ app.post('/', (req: Request, res: Response) => {
                                         fieldNameSize: integer,
                                       }
   */
-                                        console.log('req.headers', req.headers)
-  console.log('busboy.writable.valueOf()', busboy.writable)
   busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
     /*
       fieldname : filefield, string
@@ -94,7 +95,7 @@ app.post('/', (req: Request, res: Response) => {
             self.res.writeHead(400, { 'Connection': 'close' });
             self.res.end();
       */
-      file.on('end', () => {
+      file.once('end', () => {
         console.log(`File [${fieldname}] Finished`)
         // upload to 
         /*
@@ -117,7 +118,7 @@ app.post('/', (req: Request, res: Response) => {
     const saveTo = path.join(__dirname/*current location*/, 'dir', path.basename(filename))
     console.log('saveTo', saveTo)
     const outStream = fs.createWriteStream(saveTo);
-    console.log('outStream', outStream)
+    // console.log('outStream', outStream)
     // console.log('file.pipe', file.pipe.toString())
     file.pipe(outStream); //outStream is 'destination'
   });
