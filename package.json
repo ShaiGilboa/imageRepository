@@ -10,6 +10,7 @@
     "express": "^4.17.1",
     "morgan": "^1.10.0",
     "request": "^2.88.2",
+    "ts-node": "^9.0.0",
     "typescript": "^4.0.2"
   },
   "devDependencies": {
@@ -24,6 +25,6 @@
     "tsc": "tsc",
     "dev": "ts-node-dev --clear --respawn --transpile-only index.ts",
     "prod": "tsc && node ./dist/index.js",
-    "start": "ts-node-dev index.ts"
+    "start": "ts-node index.ts"
   }
 }
