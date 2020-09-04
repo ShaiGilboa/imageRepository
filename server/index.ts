@@ -52,6 +52,7 @@ app.get('/', function (req, res) {
 res.end();
 });
 
+// have a field with public/private, and user info
 app.post('/', (req: Request, res: Response) => {
   const busboy : busboy.Busboy = new Busboy({headers: req.headers}); // {host, connection, content-length, cache-control, origin, upgrade-insecure-requests, dnt, content-type, accept, sec-fetch-site, sec-fetch-mode, sec-fetch-dest, referer, accept-encoding, accept-language, cookie (and user-agent)}
   /* another argument option: limits: {
